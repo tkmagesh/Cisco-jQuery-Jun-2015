@@ -29,6 +29,7 @@
             cursor: pointer;
         }
     </style>
+    <script src="jquery-1.11.2.js"></script>
     <script>
     /*
     Use Cases
@@ -43,6 +44,13 @@
     7. Search for the tasks
     8. Persist the tasks in the server
     */
+        $(function(){
+            $("#btnAdd").click(onBtnAddClick);
+        });
+        function onBtnAddClick(){
+            var newTask = "<li>" + $("#txtTask").val() + "</li>";
+            $("#olTaskList").html($("#olTaskList").html() + newTask);
+        }
     </script>
     </head>
 <body>
