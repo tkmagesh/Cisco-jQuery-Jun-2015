@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <style>
+        h1{
+            border-top: 2px solid blue;
+            border-bottom: 2px solid blue;
+            padding: 10px 5px;
+            background-color: lightblue;
+        }
+        #olTaskList{
+            width: 50%
+        }
+        .completed{
+            color : red;
+            text-decoration: line-through;
+            font-style: italic;
+            font-weight: bold;
+        }
+        li{
+            list-style: none;
+            border: 2px solid gray;
+            background-color: lightgray;
+            margin-bottom: 10px;
+            padding : 5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+    /*
+    Use Cases
+    ===========
+    1. Add a new Task
+    2. Toggle a task completed status
+    3. Remove the completed tasks
+    4. display a message whenever a task is added or removed
+    4.1 Add validation
+    5. Add a task category
+    6. Display the tasks category wise
+    7. Search for the tasks
+    8. Persist the tasks in the server
+    */
+    </script>
+    </head>
+<body>
+    <h1>Task Manager</h1>
+    <label for="">Task :</label>
+    <input type="text" name="" id="txtTask">
+    <input type="button" value="Add Task" id="btnAdd">
+    <input type="button" value="Remove Completed" id="btnRemoveCompleted">
+    <ol id="olTaskList">
+        <li>Task - 1</li>
+        <li class="completed">Task - 2</li>
+    </ol>
+    <div id="divMessage">[Message goes here]</div>
+</body>
+</html>
