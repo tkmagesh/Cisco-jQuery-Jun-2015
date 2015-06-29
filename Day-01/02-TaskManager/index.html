@@ -46,11 +46,29 @@
     */
         $(function(){
             $("#btnAdd").click(onBtnAddClick);
+            $("li").click(onTaskItemClick);
+            $("#btnRemoveCompleted").click(onBtnRemoveCompletedClick);
         });
         function onBtnAddClick(){
-            var newTask = "<li>" + $("#txtTask").val() + "</li>";
-            $("#olTaskList").html($("#olTaskList").html() + newTask);
+            $("<li></li>")
+                .html($("#txtTask").val())
+                .click(onTaskItemClick)
+                .appendTo("#olTaskList");
         }
+        function onTaskItemClick(){
+            $(this).toggleClass("completed");
+        }
+        function onBtnRemoveCompletedClick(){
+            /*$("#olTaskList").children("li").each(function(index, element){
+                var $element = $(element);
+                if ($element.hasClass("completed")){
+                    $element.remove();
+                }
+            });*/
+            //$("#olTaskList").children("li").filter(".completed").remove();
+            $("#olTaskList > li.completed").remove();
+        }
+
     </script>
     </head>
 <body>
