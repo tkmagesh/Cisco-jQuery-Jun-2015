@@ -41,6 +41,9 @@
             border-radius: 3px;
             margin-bottom: 5px;
         }
+        h3{
+            cursor: pointer;
+        }
     </style>
     <script src="jquery-1.11.2.js"></script>
     <script>
@@ -52,8 +55,11 @@
     3. Remove the completed tasks
     4. display a message whenever a task is added or removed
     4.1 Add validation
+        disable the "add" button when the textbox is empty
+        disable the remove button when no more completed tasks are listed
     5. Add a task category
     6. Display the tasks category wise
+        dont show the category title (h3) if there are not tasks in that category
     7. Search for the tasks
     8. Persist the tasks in the server
     */
@@ -99,8 +105,23 @@
     <h1>Task Manager</h1>
     <label for="">Task :</label>
     <input type="text" name="" id="txtTask">
+    <select name="" id="selectCategory">
+        <option value="Official">Official</option>
+        <option value="Personal">Personal</option>
+        <option value="Recreational">Recreational</option>
+    </select>
     <input type="button" value="Add Task" id="btnAdd">
     <input type="button" value="Remove Completed" id="btnRemoveCompleted">
+    <br>
+    <a href="">show/hide all</a>
+    <h3>Personal</h3>
+    <ol id="olTaskList">
+        <li>Task - 1</li>
+        <li class="completed">Task - 2</li>
+    </ol>
+    <h3>Official</h3>
+
+    <h3>Recreational</h3>
     <ol id="olTaskList">
         <li>Task - 1</li>
         <li class="completed">Task - 2</li>
