@@ -19,13 +19,19 @@
     </style>
     <script src="jquery-1.11.2.js"></script>
     <script>
-    
+        $(function init(){
+            $("#btnGreet").click(onBtnGreetClick);
+            function onBtnGreetClick(){
+                var message = "Hi " + $("#txtName").val() + ", Have a nice day!";
+                $('#divMessage').html(message);
+            }
+        });
     </script>
-    
 </head>
 <body>
    <label for="">Name :</label>
-    <input type="text" name="" id="txtName">
+    <input type="text" name="" id="txtName" class="abc">
+    <input type="text" name="" id="">
     <input type="button" value="Greet" id="btnGreet">
     <div id="divMessage">[Message goes here]</div>
 </body>
