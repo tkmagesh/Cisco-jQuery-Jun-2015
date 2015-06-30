@@ -13,8 +13,14 @@
         li{
             cursor: pointer;
         }
+        .hint{
+            color : gray;
+            font-style: italic;
+
+        }
     </style>
     <script src="jquery-1.11.2.js"></script>
+    <script src="jquery.makeHint.js"></script>
     <script>
         /**
         $.ajax({
@@ -85,14 +91,16 @@
                     .appendTo("#olTaskList");
             }
 
+            $(":text").makeHint();
+
         });
 
     </script>
 </head>
 <body>
     <h1>Task Manager</h1>
-    <label for="">Task :</label>
-    <input type="text" name="" id="txtTask">
+    <input type="text" name="" id="txtTask" data-hint-text="Enter the task">
+    <input type="text" name="" id="txtDesc" data-hint-text="Enter the desc">
     <button id="btnAdd">Add Task</button>
     <button id="btnRemoveCompleted">Remove Completed</button>
     <ol id="olTaskList"></ol>
