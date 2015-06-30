@@ -3,6 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Product Manager</title>
+    <script type="text/template" id="productListTemplate">
+    <h2>Products</h2>
+    <table width="50%">
+       {{#each list}}
+       <tr data-product-id="{{id}}" >
+           <td>{{id}}</td>
+           <td>{{name}}</td>
+           <td>{{cost}}</td>
+           <td><input type="button" class="removeButton" value="Remove"></input></td>
+       </tr>
+       {{/each}}
+   </table>
+   <div class="Summary">
+        Product Count : {{count}}
+        Average Cost : {{averageCost}}
+    </div>
+    </script>
+    <script src="jquery-1.11.2.js"></script>
+    <script src="handlebars-v3.0.3.js"></script>
+    <script>
+    $(function(){
+        var products = [];
+        var template = Handlebars.compile($("#productListTemplate").html());
+        $("#btnAddProduct").click(function(){
+            var newProduct = {
+                id : parseInt($("#txtProductId").val(),10),
+                name : $("#txtProductName").val(),
+                cost : parseInt($("#txtProductCost").val(),10)
+            };
+            products.push(newProduct);
+            displayProductList();
+        });
+        $("#productList").on("click", ".removeButton", function(){
+            window.$row = $(this);
+            var productId = parseInt($(this).parents("tr").attr("data-product-id"),10);
+            for(var i=products.length-1; i>=0; i--){
+                if (productId === products[i].id){
+                    products.splice(i,1);
+                }
+            }
+            displayProductList();
+        });
+        function displayProductList(){
+            var data = {
+                list : products,
+                count : products.length,
+                averageCost : 0
+            };
+            data.averageCost = products.reduce(function(result, product){
+                return result + product.cost;
+            }, 0)/ products.length;
+            console.log(template(data));
+            $("#productList").html(template(data));
+        }
+    });
+    </script>
 </head>
 <body>
   <h1>Products</h1>
@@ -11,19 +67,19 @@
            <td>
                <div>
                    <div>Id</div>
-                   <input type="text" name="" id="">
+                   <input type="text" name="" id="txtProductId">
                </div>
            </td>
            <td>
                <div>
                    <div> Name</div>
-                   <input type="text" name="" id="">
+                   <input type="text" name="" id="txtProductName">
                </div>
            </td>
            <td>
                <div>
                    <div>Cost</div>
-                   <input type="text" name="" id="">
+                   <input type="text" name="" id="txtProductCost">
                </div>
            </td>
            <td>
@@ -31,14 +87,10 @@
            </td>
        </tr>
    </table>
-   <table>
-       <tr>
-           <td></td>
-       </tr>
-   </table>
-    <div class="Summary">
-        Product Count : ?
-        Average Cost : ?
-    </div>
+   <div id="productList">
+
+   </div>
+
+
 </body>
 </html>
