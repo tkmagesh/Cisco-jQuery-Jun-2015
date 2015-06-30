@@ -46,6 +46,7 @@
         }
     </style>
     <script src="jquery-1.11.2.js"></script>
+    <script src="handlebars-v3.0.3.js"></script>
     <script>
     /*
     Use Cases
@@ -63,6 +64,7 @@
     7. Search for the tasks
     8. Persist the tasks in the server
     */
+        var template = null;
         $(function(){
             $("#btnAdd").click(onBtnAddClick);
             $("li").click(onTaskItemClick);
@@ -71,18 +73,16 @@
                 var $this = $(this);
                 $this.siblings("ol").slideToggle();
             });
+            var templateHtml = $("#taskSectionTemplate").html();
+            template = Handlebars.compile(templateHtml);
         });
         function onBtnAddClick(){
             var taskSectionType = $("#selectCategory").val();
             var taskSection =  "div." +  taskSectionType;
             if ($(taskSection).length === 0){
-                var template = $("#taskSectionTemplate").html();
-                $(template)
-                    .addClass(taskSectionType)
-                    .children("h3")
-                    .html(taskSectionType)
-                    .end()
-                    .appendTo(document.body);
+                var data = {category : taskSectionType};
+                var result = template(data);
+                $(document.body).append(result);
             }
             var olSelector = taskSection + " > ol";
             $("<li></li>")
@@ -117,8 +117,8 @@
 
     </script>
     <script type="text/template" id="taskSectionTemplate">
-        <div>
-            <h3></h3>
+        <div class="{{category}}">
+            <h3>{{category}}</h3>
             <ol>
 
             </ol>
