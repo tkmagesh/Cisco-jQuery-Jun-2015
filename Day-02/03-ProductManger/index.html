@@ -54,7 +54,6 @@
             data.averageCost = products.reduce(function(result, product){
                 return result + product.cost;
             }, 0)/ products.length;
-            console.log(template(data));
             $("#productList").html(template(data));
         }
     });
