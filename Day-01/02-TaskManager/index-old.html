@@ -64,23 +64,16 @@
     8. Persist the tasks in the server
     */
         $(function(){
-            $("#btnAdd").click(onBtnAddClick);
-            $("li").click(onTaskItemClick);
+            //$("#btnAdd").click(onBtnAddClick);
+            $("#btnAdd").on("click", onBtnAddClick);
+
+            //$("#olTaskList").delegate("li","click",onTaskItemClick);
+            $("#olTaskList").on("click", "li", onTaskItemClick);
+
             $("#btnRemoveCompleted").click(onBtnRemoveCompletedClick);
         });
         function onBtnAddClick(){
-            var taskSectionType = $("#selectCategory").val();
-            var taskSection =  "div." +  taskSectionType;
-            if ($(taskSection).length === 0){
-                var template = $("#taskSectionTemplate").html();
-                $(template)
-                    .addClass(taskSectionType)
-                    .children("h3")
-                    .html(taskSectionType)
-                    .end()
-                    .appendTo(document.body);
-            }
-            var olSelector = taskSection + " > ol";
+            var olSelector = "#olTaskList";
             $("<li></li>")
                 .hide()
                 .html($("#txtTask").val())
@@ -112,30 +105,19 @@
         }
 
     </script>
-    <script type="text/template" id="taskSectionTemplate">
-        <div>
-            <h3></h3>
-            <ol>
 
-            </ol>
-        </div>
-    </script>
     </head>
 <body>
     <h1>Task Manager</h1>
     <label for="">Task :</label>
     <input type="text" name="" id="txtTask">
-    <select name="" id="selectCategory">
-        <option value="Official">Official</option>
-        <option value="Personal">Personal</option>
-        <option value="Recreational">Recreational</option>
-    </select>
+
     <input type="button" value="Add Task" id="btnAdd">
     <input type="button" value="Remove Completed" id="btnRemoveCompleted">
-    <br>
-    <a href="">show/hide all</a>
-
-
+    <ol id="olTaskList">
+        <li>This is a sample task</li>
+        <li>This is another sample task</li>
+    </ol>
     <div id="divMessages"></div>
 </body>
 </html>
