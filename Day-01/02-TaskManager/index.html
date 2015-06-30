@@ -69,11 +69,21 @@
             $("#btnRemoveCompleted").click(onBtnRemoveCompletedClick);
         });
         function onBtnAddClick(){
+            var taskSectionType = $("#selectCategory").val();
+            var taskSection =  "div." +  taskSectionType;
+            if ($(taskSection).length === 0){
+                var template = $("#taskSectionTemplate").html();
+                var $taskSection = $(template);
+                $taskSection.addClass(taskSectionType);
+                $taskSection.children("h3").html(taskSectionType);
+                $taskSection.appendTo(document.body);
+            }
+            var olSelector = taskSection + " > ol";
             $("<li></li>")
                 .hide()
                 .html($("#txtTask").val())
                 .click(onTaskItemClick)
-                .prependTo("#olTaskList")
+                .prependTo(olSelector)
                 .slideDown(500);
             displayMessage("A new task is added");
         }
@@ -100,6 +110,14 @@
         }
 
     </script>
+    <script type="text/template" id="taskSectionTemplate">
+        <div>
+            <h3></h3>
+            <ol>
+
+            </ol>
+        </div>
+    </script>
     </head>
 <body>
     <h1>Task Manager</h1>
@@ -114,18 +132,8 @@
     <input type="button" value="Remove Completed" id="btnRemoveCompleted">
     <br>
     <a href="">show/hide all</a>
-    <h3>Personal</h3>
-    <ol id="olTaskList">
-        <li>Task - 1</li>
-        <li class="completed">Task - 2</li>
-    </ol>
-    <h3>Official</h3>
 
-    <h3>Recreational</h3>
-    <ol id="olTaskList">
-        <li>Task - 1</li>
-        <li class="completed">Task - 2</li>
-    </ol>
+
     <div id="divMessages"></div>
 </body>
 </html>
