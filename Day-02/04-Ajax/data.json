@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Watch a movie",
-      "isCompleted": true
+      "isCompleted": false
     },
     {
       "id": 2,
@@ -14,6 +14,16 @@
       "id": 3,
       "name": "Plan for dinner",
       "isCompleted": true
+    },
+    {
+      "name": "Master Ajax Communication",
+      "isCompleted": false,
+      "id": 4
+    },
+    {
+      "name": "Realize the power of Separation of Concerns",
+      "isCompleted": false,
+      "id": 5
     }
   ]
 }

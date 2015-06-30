@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <style>
+        .completed{
+            color : red;
+            text-decoration: line-through;
+            font-weight: bold;
+            font-style: italic;
+        }
+        li{
+            cursor: pointer;
+        }
+    </style>
     <script src="jquery-1.11.2.js"></script>
     <script>
         /**
@@ -16,10 +27,66 @@
               console.log(response);
            }
         })
+
          */
         $(function(){
+            $.ajax({
+               method : "GET",
+               url : "/tasks",
+               contentType : "application/json",
+               dataType : "JSON",
+               //data :
+               success : function(response){
+                  response.forEach(addTaskToList);
+               }
+            });
+            $("#btnAdd").click(function(){
+                var newTask = {
+                    name : $("#txtTask").val(),
+                    isCompleted : false
+                };
+                $.ajax({
+                   method : "POST",
+                   url : "/tasks",
+                   contentType : "application/json",
+                   dataType : "JSON",
+                   data : JSON.stringify(newTask),
+                   success : function(response){
+                      addTaskToList(response);
+                   }
+                });
+
+            });
+            $("#olTaskList").on("click","li", function(){
+                var $this = $(this);
+                var taskId = $this.attr("data-task-id");
+                var isCompleted = $this.hasClass("completed");
+                var data = {
+                    name : $this.html(),
+                    isCompleted : !isCompleted
+                };
+                $.ajax({
+                    url : "/tasks/" + taskId,
+                    method : "PUT",
+                    data : JSON.stringify(data),
+                    contentType : "application/json",
+                    dataType : "JSON",
+                    success : function(){
+                        $this.toggleClass("completed");
+                    }
+                });
+            });
+
+            function addTaskToList(task){
+                $("<li></li>")
+                    .html(task.name)
+                    .attr("data-task-id", task.id)
+                    .addClass(task.isCompleted ? "completed" : "")
+                    .appendTo("#olTaskList");
+            }
 
         });
+
     </script>
 </head>
 <body>
